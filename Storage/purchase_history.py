@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime
 from base import Base
 from datetime import datetime
 
+
 class PurchaseHistory(Base):
     """ Item Purchase History """
 

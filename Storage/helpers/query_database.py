@@ -14,13 +14,14 @@ def fetch_timestamp_results(start_timestamp, end_timestamp, session: Session, ta
     start_datetime = convert_datetime(start_timestamp)
     end_datetime = convert_datetime(end_timestamp)
 
-    results = session.query(table).filter(and_(table.date_created > start_datetime, table.date_created <= end_datetime)).all()
+    results = session.query(table).filter(and_(
+        table.date_created > start_datetime, table.date_created <= end_datetime)).all()
 
     result_formatted = []
 
     for result in results:
         result_formatted.append(result.to_dict())
-    
+
     return result_formatted
 
 

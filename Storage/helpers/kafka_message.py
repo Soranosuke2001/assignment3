@@ -56,7 +56,7 @@ def kafka_message(DB_SESSION, consumer, logger: Logger):
             session_commit(session, entry)
 
             log_debug(logger, "create_gun_stat", payload['trace_id'])
-        
+
         consumer.commit_offsets()
 
     session.close()

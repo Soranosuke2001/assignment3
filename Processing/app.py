@@ -1,4 +1,5 @@
-import connexion, time
+import connexion
+import time
 from datetime import datetime
 from connexion.middleware import MiddlewarePosition
 from starlette.middleware.cors import CORSMiddleware
@@ -13,10 +14,10 @@ from helpers.log_message import start_request, end_request, data_found, data_not
 from helpers.query_database import row_counter, check_db, update_storage
 from helpers.read_config import get_sqlite_config, read_log_config
 
-filename, seconds, url = get_sqlite_config()    
+filename, seconds, url = get_sqlite_config()
 logger = read_log_config()
 
-DB_ENGINE = create_engine("sqlite:///%s" %filename)
+DB_ENGINE = create_engine("sqlite:///%s" % filename)
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
@@ -76,7 +77,7 @@ def populate_stats():
     session.close()
 
     end_periodic(logger)
-    
+
 
 def init_scheduler():
     sched = BackgroundScheduler(daemon=True)
@@ -86,13 +87,13 @@ def init_scheduler():
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_middleware(CORSMiddleware, position=MiddlewarePosition.BEFORE_EXCEPTION, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
-app.add_api("./config/openapi.yml", strict_validation=True, validate_response=True)
+app.add_middleware(CORSMiddleware, position=MiddlewarePosition.BEFORE_EXCEPTION, allow_origins=[
+                   "*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.add_api("./config/openapi.yml",
+            strict_validation=True, validate_response=True)
 
 if __name__ == "__main__":
     time.sleep(20)
-    
+
     init_scheduler()
     app.run(host="0.0.0.0", port=8100)
-
-

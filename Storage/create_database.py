@@ -1,4 +1,5 @@
-import mysql.connector, time
+import mysql.connector
+import time
 
 from helpers.read_config import database_config
 
@@ -11,12 +12,13 @@ if __name__ == "__main__":
 
     while not connected:
         try:
-            connection = mysql.connector.connect(host=hostname, user=user, password=password)
+            connection = mysql.connector.connect(
+                host=hostname, user=user, password=password)
             connected = True
         except Exception as e:
             print("Database not yet available, retrying in 10 seconds")
             time.sleep(10)
-    
+
     # connection = mysql.connector.connect(host=hostname, user=user, password=password)
     c = connection.cursor()
 
@@ -25,7 +27,8 @@ if __name__ == "__main__":
     connection.commit()
     connection.close()
 
-    connection = mysql.connector.connect(host=hostname, user=user, password=password, database=db)
+    connection = mysql.connector.connect(
+        host=hostname, user=user, password=password, database=db)
 
     c = connection.cursor()
 

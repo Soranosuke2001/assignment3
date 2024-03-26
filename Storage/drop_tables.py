@@ -3,7 +3,8 @@ from helpers.read_config import database_config
 
 user, password, hostname, port, db = database_config()
 
-connection = mysql.connector.connect(host=hostname, user=user, password=password, database=db)
+connection = mysql.connector.connect(
+    host=hostname, user=user, password=password, database=db)
 
 c = connection.cursor()
 

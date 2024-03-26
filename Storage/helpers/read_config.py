@@ -1,4 +1,6 @@
-import yaml, logging, logging.config
+import yaml
+import logging
+import logging.config
 
 
 def read_app_config():
@@ -24,7 +26,7 @@ def get_kafka_config():
     app_config = read_app_config()
 
     return app_config['events']['hostname'], app_config['events']['port'], app_config['events']['topic']
-    
+
 
 def read_log_config():
     with open('./config/log_conf.yml', 'r') as file:
