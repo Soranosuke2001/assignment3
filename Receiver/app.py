@@ -1,5 +1,3 @@
-# Testing
-
 from connexion import NoContent
 import connexion, uuid, time
 from pykafka import KafkaClient
