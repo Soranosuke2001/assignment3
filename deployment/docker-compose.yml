@@ -60,7 +60,7 @@ services:
       - kafka
 
   receiver:
-    image: soranosuke/receiver-as3:lab10
+    image: soranosuke/receiver-as3:receiverapp
     platform: linux/amd64
     ports:
       - '8080:8080'
@@ -70,7 +70,7 @@ services:
       - kafka
 
   storage:
-    image: soranosuke/storage-as3:lab10
+    image: soranosuke/storage-as3:storageapp
     platform: linux/amd64
     ports:
       - '8090:8090'
@@ -81,7 +81,7 @@ services:
       - db
 
   processing:
-    image: soranosuke/processing-as3:lab10
+    image: soranosuke/processing-as3:processingapp
     platform: linux/amd64
     network_mode: host
     ports:
