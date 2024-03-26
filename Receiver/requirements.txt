@@ -24,7 +24,6 @@ MarkupSafe==2.1.5
 mysql==0.0.3
 mysql-connector-python==8.3.0
 mysqlclient==2.2.4
-pkgconfig==1.5.5
 pykafka==2.8.0
 PyMySQL==1.1.0
 python-dotenv==1.0.1
