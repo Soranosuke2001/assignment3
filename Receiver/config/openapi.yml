@@ -1,0 +1,120 @@
+---
+openapi: 3.0.0
+info:
+  title: Player Stats API
+  description: This API receives each player's gun stats and item purchase history.
+  contact:
+    email: sschlegel1@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: gun_stats
+  description: Each players gun stats
+- name: item_transactions
+  description: All item purchase transactions
+paths:
+  /new/gun_stat:
+    post:
+      tags:
+      - gun_stats
+      summary: creates a new gun stat entry
+      description: "When a new gun is used by the player, this endpoint will create a new entry into the system"
+      operationId: app.create_gun_stat
+      requestBody:
+        description: Reading a player's gun stats to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GunStats'
+      responses:
+        "200":
+          description: successfully added the new gun stat entry
+        "400":
+          description: "invalid input, object invalid"
+  /new/item_transaction:
+    post:
+      tags:
+      - item_transactions
+      summary: creates a new purchase transaction
+      description: "When a player purchases an item from the in-game store, this endpoint will create a new purchase transaction"
+      operationId: app.create_purchase_transaction
+      requestBody:
+        description: Creating a new transaction event to add
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PurchaseHistory'
+      responses:
+        "201":
+          description: successfully created the transaction invoice
+        "400":
+          description: "invalid input, object invalid"
+components:
+  schemas:
+    GunStats:
+      required:
+      - game_id
+      - gun_id
+      - num_body_shots
+      - num_bullets_shot
+      - num_head_shots
+      - num_missed_shots
+      - user_id
+      type: object
+      properties:
+        gun_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        game_id:
+          type: string
+          format: uuid
+          example: 1c3b5a4e-b4d3-42f9-afaa-b3618924bbe2
+        user_id:
+          type: string
+          format: uuid
+          example: 736bf87e-79e5-4d49-8e52-8e75d5e06f84
+        num_missed_shots:
+          type: integer
+          example: 100
+        num_body_shots:
+          type: integer
+          example: 40
+        num_head_shots:
+          type: integer
+          example: 20
+        num_bullets_shot:
+          type: integer
+          example: 160
+    PurchaseHistory:
+      required:
+      - item_id
+      - item_price
+      - transaction_date
+      - transaction_id
+      - user_id
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          format: uuid
+          example: ed90a56d-fc89-4112-9dee-dd31fe9d55d9
+        item_id:
+          type: string
+          format: uuid
+          example: 8346cd90-aac9-4241-a644-1b2349ea505e
+        user_id:
+          type: string
+          format: uuid
+          example: f33ce732-958d-4894-bacd-91512eecf3df
+        transaction_date:
+          type: string
+          format: date-time
+          example: 2023-12-29T12:31:10.001Z
+        item_price:
+          type: integer
+          example: 14

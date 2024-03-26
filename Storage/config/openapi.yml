@@ -1,0 +1,174 @@
+---
+openapi: 3.0.0
+info:
+  title: Player Stats API
+  description: This API receives each player's gun stats and item purchase history.
+  contact:
+    email: sschlegel1@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: gun_stats
+  description: Each players gun stats
+- name: item_transactions
+  description: All item purchase transactions
+paths:
+  /get/gun_stats:
+    get:
+      tags: 
+      - fetch_gun_stats
+      summary: fetches a list of gun stats with the matching date range
+      description: "Get a list of gun stat events that was added during the specified time frame"
+      operationId: app.fetch_gun_stat
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Limits the number of gun stats returned
+          schema:
+            type: string
+            format: date-time
+            example: 2023-12-29T12:31:10.001Z
+        - name: end_timestamp
+          in: query
+          description: Limits the number of gun stats returned
+          schema:
+            type: string
+            format: date-time
+            example: 2023-12-29T12:31:10.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of gun stats
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GunStats'
+        '400':
+          description: Invalid request
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /get/purchase_transactions:
+    get:
+      tags: 
+      - fetch_purchase_transactions
+      summary: fetches a list of purchase transactions with the matching date range
+      description: "Get a list of purchase transaction events that was added during the specified time frame"
+      operationId: app.fetch_purchase_transaction
+      parameters:
+        - name: start_timestamp
+          in: query
+          description: Limits the number of purchase transactions returned
+          schema:
+            type: string
+            format: date-time
+            example: 2023-12-29T12:31:10.001Z
+        - name: end_timestamp
+          in: query
+          description: Limits the number of purchase transactions returned
+          schema:
+            type: string
+            format: date-time
+            example: 2023-12-29T12:31:10.001Z
+      responses:
+        '200':
+          description: Successfully returned a list of purchase transactions
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseHistory'
+        '400':
+          description: Invalid request
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    GunStats:
+      required:
+      - game_id
+      - gun_id
+      - num_body_shots
+      - num_bullets_shot
+      - num_head_shots
+      - num_missed_shots
+      - user_id
+      - trace_id
+      type: object
+      properties:
+        gun_id:
+          type: string
+          format: uuid
+          example: d290f1ee-6c54-4b01-90e6-d701748f0851
+        game_id:
+          type: string
+          format: uuid
+          example: 1c3b5a4e-b4d3-42f9-afaa-b3618924bbe2
+        user_id:
+          type: string
+          format: uuid
+          example: 736bf87e-79e5-4d49-8e52-8e75d5e06f84
+        trace_id:
+          type: string
+          format: uuid
+          example: 736bf87e-79e5-4d49-8e52-8e75d5e06f84
+        num_missed_shots:
+          type: integer
+          example: 100
+        num_body_shots:
+          type: integer
+          example: 40
+        num_head_shots:
+          type: integer
+          example: 20
+        num_bullets_shot:
+          type: integer
+          example: 160
+    PurchaseHistory:
+      required:
+      - item_id
+      - item_price
+      - transaction_date
+      - transaction_id
+      - user_id
+      - trace_id
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          format: uuid
+          example: ed90a56d-fc89-4112-9dee-dd31fe9d55d9
+        item_id:
+          type: string
+          format: uuid
+          example: 8346cd90-aac9-4241-a644-1b2349ea505e
+        user_id:
+          type: string
+          format: uuid
+          example: f33ce732-958d-4894-bacd-91512eecf3df
+        trace_id:
+          type: string
+          format: uuid
+          example: f33ce732-958d-4894-bacd-91512eecf3df
+        transaction_date:
+          type: string
+          format: date-time
+          example: 2023-12-29T12:31:10.001Z
+        item_price:
+          type: integer
+          example: 14

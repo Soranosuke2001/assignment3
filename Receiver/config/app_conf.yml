@@ -1,0 +1,9 @@
+version: 1
+newItemTransaction:
+  url: http://storage:8090/new/item_transaction
+newGunStat:
+  url: http://storage:8090/new/gun_stat
+events:
+  hostname: kafka
+  port: 9092
+  topic: events

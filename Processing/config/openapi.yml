@@ -1,0 +1,74 @@
+---
+openapi: 3.0.0
+info:
+  title: Stats API
+  description: This API provides the event stats
+  contact:
+    email: sschlegel1@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: /
+tags:
+- name: stats
+  description: Event stats
+paths:
+  /get/stats:
+    get:
+      tags:
+      - stats
+      summary: Gets the event stats
+      description: Fetches the purchase history and gun stats processed stats.
+      operationId: app.get_stats
+      responses:
+        '200':
+          description: successfully returned a list of event stats
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/AccountStats'
+        '400':
+          description: Invalid Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+components:
+  schemas:
+    AccountStats:
+      required:
+      - num_gun_stat_events
+      - head_shot_count
+      - bullet_shot_count
+      - num_purchase_history_events
+      - highest_item_cost
+      - last_updated
+      type: object
+      properties:
+        num_gun_stat_events:
+          type: integer
+          example: 500000
+        head_shot_count:
+          type: integer
+          example: 1000
+        bullet_shot_count:
+          type: integer
+          example: 5656
+        num_purchase_history_events:
+          type: integer
+          example: 450000
+        highest_item_cost:
+          type: integer
+          example: 100
+        last_updated:
+          type: string
+          format: date-time
+          example: 
+      type: object
