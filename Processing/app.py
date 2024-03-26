@@ -1,6 +1,6 @@
-import connexion
 import time
 from datetime import datetime
+import connexion
 from connexion.middleware import MiddlewarePosition
 from starlette.middleware.cors import CORSMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -17,7 +17,7 @@ from helpers.read_config import get_sqlite_config, read_log_config
 filename, seconds, url = get_sqlite_config()
 logger = read_log_config()
 
-DB_ENGINE = create_engine("sqlite:///%s" % filename)
+DB_ENGINE = create_engine(f"sqlite:///{filename}")
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
@@ -31,15 +31,15 @@ def get_stats():
 
     session.close()
 
-    if response == None:
+    if response is None:
         data_not_found(logger, 400, "No new data")
 
         return "No Data Found", 400
-    else:
-        data_found(logger, response)
-        end_request(logger)
 
-        return response, 200
+    data_found(logger, response)
+    end_request(logger)
+
+    return response, 200
 
 
 def populate_stats():

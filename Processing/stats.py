@@ -1,6 +1,5 @@
 from sqlalchemy import Column, Integer, DateTime
 from base import Base
-from datetime import datetime
 
 class Stats(Base):
     """ Stats Table """

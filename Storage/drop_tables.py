@@ -8,9 +8,9 @@ connection = mysql.connector.connect(
 
 c = connection.cursor()
 
-drop_tables = "DROP TABLE IF EXISTS gun_stats, purchase_history"
+DROP_TABLES = "DROP TABLE IF EXISTS gun_stats, purchase_history"
 
-c.execute(drop_tables)
+c.execute(DROP_TABLES)
 
 connection.commit()
 connection.close()

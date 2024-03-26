@@ -48,8 +48,7 @@ while not mysql_connected:
         Base.metadata.bind = DB_ENGINE
         DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
-        logger.info(f"Successfully connected to DB. Hostname: {
-                    hostname}, Port: {port}")
+        logger.info(f"Successfully connected to DB. Hostname: {hostname}, Port: {port}")
     except:
         logger.error("Failed to connect to MySQL, retrying in 5 seconds")
         time.sleep(5)
