@@ -13,14 +13,14 @@ logger = read_log_config()
 
 time.sleep(10)
 
-connected = False
+CONNECTED = False
 
-while not connected:
+while not CONNECTED:
     try:
         client = KafkaClient(hosts=f'{kafka_hostname}:{kafka_port}')
         topic = client.topics[str.encode(kafka_topic)]
         producer = topic.get_sync_producer()
-        connected = True
+        CONNECTED = True
     except:
         logger.error("Failed to connect to Kafka, retrying in 5 seconds")
         time.sleep(5)
