@@ -58,11 +58,9 @@ def gen_trace_id():
 
 def log_message(trace_id, event_name, event, status_code=400):
     if event == "receive":
-        logger.info(f"Received event {
-                    event_name} request with a trace id of {trace_id}")
+        logger.info(f"Received event {event_name} request with a trace id of {trace_id}")
     else:
-        logger.info(f"Returned event {event_name} response ID: {
-                    trace_id} with status {status_code}")
+        logger.info(f"Returned event {event_name} response ID: {trace_id} with status {status_code}")
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
