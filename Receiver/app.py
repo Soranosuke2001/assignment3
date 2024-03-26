@@ -1,8 +1,8 @@
-from connexion import NoContent
-import connexion
 import uuid
 import time
+import connexion
 from pykafka import KafkaClient
+from connexion import NoContent
 
 from helpers.read_config import get_urls, read_log_config, get_kafka_config
 from helpers.kafka_message import kafka_message
