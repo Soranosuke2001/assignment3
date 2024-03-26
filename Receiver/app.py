@@ -1,5 +1,7 @@
 from connexion import NoContent
-import connexion, uuid, time
+import connexion
+import uuid
+import time
 from pykafka import KafkaClient
 
 from helpers.read_config import get_urls, read_log_config, get_kafka_config
@@ -7,7 +9,7 @@ from helpers.kafka_message import kafka_message
 
 gun_stat_url, item_transaction_url = get_urls()
 kafka_hostname, kafka_port, kafka_topic = get_kafka_config()
-logger = read_log_config() 
+logger = read_log_config()
 
 time.sleep(10)
 
@@ -56,13 +58,16 @@ def gen_trace_id():
 
 def log_message(trace_id, event_name, event, status_code=400):
     if event == "receive":
-        logger.info(f"Received event {event_name} request with a trace id of {trace_id}")
+        logger.info(f"Received event {
+                    event_name} request with a trace id of {trace_id}")
     else:
-        logger.info(f"Returned event {event_name} response ID: {trace_id} with status {status_code}")
+        logger.info(f"Returned event {event_name} response ID: {
+                    trace_id} with status {status_code}")
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
-app.add_api("./config/openapi.yml", strict_validation=True, validate_response=True)
+app.add_api("./config/openapi.yml",
+            strict_validation=True, validate_response=True)
 
 
 if __name__ == "__main__":
