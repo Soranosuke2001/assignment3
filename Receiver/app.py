@@ -28,6 +28,12 @@ while not CONNECTED:
 
 
 def create_gun_stat(body):
+    """
+    Create a gun stat record.
+
+    :param body: The request body containing gun stat data.
+    :return: Tuple (response body, status code).
+    """
     trace_id = gen_trace_id()
     body['trace_id'] = trace_id
 
@@ -41,6 +47,12 @@ def create_gun_stat(body):
 
 
 def create_purchase_transaction(body):
+    """
+    Create a purchase transaction record.
+
+    :param body: The request body containing transaction data.
+    :return: Tuple (response body, status code).
+    """
     trace_id = gen_trace_id()
     body['trace_id'] = trace_id
 
@@ -54,14 +66,28 @@ def create_purchase_transaction(body):
 
 
 def gen_trace_id():
+    """
+    Generate a unique trace ID.
+
+    :return: A unique trace ID.
+    """
     return str(uuid.uuid4())
 
 
 def log_message(trace_id, event_name, event, status_code=400):
+    """
+    Log a message related to an event.
+
+    :param trace_id: The trace ID associated with the event.
+    :param event_name: The name of the event.
+    :param event: The type of event ("receive" or "return").
+    :param status_code: The HTTP status code (default is 400).
+    """
     if event == "receive":
         logger.info("Received event %s request with a trace id of %s", event_name, trace_id)
     else:
-        logger.info("Returned event %s response ID: %s with status %s", event_name, trace_id, status_code)
+        logger.info("Returned event %s response ID: %s with status %s", 
+                    event_name, trace_id, status_code)
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
