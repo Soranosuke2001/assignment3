@@ -1,7 +1,5 @@
 # ACIT 3855 Microservices Project
 
-Testing Pipeline
-
 ### Description
 
 This project is to demonstrate the microservices architecture. This application will receive 2 different types of events (Receiver Service) and will store the events to the database (Storage Service). There is a periodic processing service (Processing Service) that will calculate some statistics based on the data received. The Audit Service will allow users to fetch a specific event that was received previously. There is also a website (Dashboard Service) that will allow the user to view the statistics and is regularly updated.
