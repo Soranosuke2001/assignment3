@@ -22,7 +22,7 @@ while not CONNECTED:
         topic = client.topics[str.encode(kafka_topic)]
         producer = topic.get_sync_producer()
         CONNECTED = True
-    except:
+    except Exception as e:
         logger.error("Failed to connect to Kafka, retrying in 5 seconds")
         time.sleep(5)
 
