@@ -30,6 +30,15 @@ def get_sqlite_config():
     return filename, seconds, url
 
 
+def get_flask_config():
+    app_config = read_app_config()
+
+    host = app_config["flask"]["host"]
+    port = app_config["flask"]["port"]
+
+    return host, port
+
+
 def read_log_config():
     with open('./config/log_conf.yml', 'r') as file:
         log_config = yaml.safe_load(file.read())

@@ -12,10 +12,11 @@ from stats import Stats
 
 from helpers.log_message import start_request, end_request, data_found, data_not_found, start_periodic, end_periodic, updated_db, no_events
 from helpers.query_database import row_counter, check_db, update_storage
-from helpers.read_config import get_sqlite_config, read_log_config
+from helpers.read_config import get_sqlite_config, read_log_config, get_flask_config
 
 filename, seconds, url = get_sqlite_config()
 logger = read_log_config()
+flask_host, flask_port = get_flask_config()
 
 DB_ENGINE = create_engine(f"sqlite:///{filename}")
 Base.metadata.bind = DB_ENGINE
@@ -96,4 +97,4 @@ if __name__ == "__main__":
     time.sleep(20)
 
     init_scheduler()
-    app.run(host="0.0.0.0", port=8100)
+    app.run(host=flask_host, port=flask_port)

@@ -11,13 +11,14 @@ from base import Base
 from gun_stats import GunStats
 from purchase_history import PurchaseHistory
 
-from helpers.read_config import database_config, read_log_config, get_kafka_config
+from helpers.read_config import database_config, read_log_config, get_kafka_config, get_flask_config
 from helpers.query_database import fetch_timestamp_results
 from helpers.kafka_message import kafka_message
 
 
 user, password, hostname, port, db = database_config()
 kafka_hostname, kafka_port, kafka_topic = get_kafka_config()
+flask_host, flask_port = get_flask_config()
 logger = read_log_config()
 
 time.sleep(10)
@@ -98,4 +99,4 @@ if __name__ == "__main__":
     t1.setDaemon(True)
     t1.start()
 
-    app.run(host="0.0.0.0", port=8090)
+    app.run(host=flask_host, port=flask_port)

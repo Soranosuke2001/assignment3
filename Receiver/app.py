@@ -4,11 +4,12 @@ import connexion
 from pykafka import KafkaClient
 from connexion import NoContent
 
-from helpers.read_config import get_urls, read_log_config, get_kafka_config
+from helpers.read_config import get_urls, read_log_config, get_kafka_config, get_flask_config
 from helpers.kafka_message import kafka_message
 
 gun_stat_url, item_transaction_url = get_urls()
 kafka_hostname, kafka_port, kafka_topic = get_kafka_config()
+flask_host, flask_port = get_flask_config()
 logger = read_log_config()
 
 time.sleep(10)
@@ -69,4 +70,4 @@ app.add_api("./config/openapi.yml",
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host=flask_host, port=flask_port)
