@@ -135,14 +135,15 @@ def update_stats(stats_data, gs_events, ph_events, new_event):
 
 def update_storage(logger, stats_data):
     error = False
+    TIMEOUT = 10
 
     params = {
         "start_timestamp": stats_data['last_updated'].strftime('%Y-%m-%dT%H:%M:%SZ'),
         "end_timestamp": datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ')
     }
 
-    gs_res = requests.get(f"{url}/get/gun_stats", params=params)
-    ph_res = requests.get(f"{url}/get/purchase_transactions", params=params)
+    gs_res = requests.get(f"{url}/get/gun_stats", params=params, timeout=TIMEOUT)
+    ph_res = requests.get(f"{url}/get/purchase_transactions", params=params, timeout=TIMEOUT)
 
     if gs_res.status_code != 201:
         error_response(logger, "gs")
