@@ -36,6 +36,8 @@ while not kafka_connected:
             reset_offset_on_start=False,
             auto_offset_reset=OffsetType.LATEST
         )
+
+        kafka_connected = True
     except:
         logger.error("Failed to connect to Kafka, retrying in 5 seconds")
         time.sleep(5)
@@ -50,6 +52,8 @@ while not mysql_connected:
         DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
         logger.info(f"Successfully connected to DB. Hostname: {hostname}, Port: {port}")
+
+        mysql_connected = True
     except:
         logger.error("Failed to connect to MySQL, retrying in 5 seconds")
         time.sleep(5)

@@ -25,6 +25,7 @@ while not CONNECTED:
         client = KafkaClient(hosts=f'{kafka_hostname}:{kafka_port}')
         topic = client.topics[str.encode(kafka_topic)]
         producer = topic.get_sync_producer()
+        
         CONNECTED = True
     except Exception as e:
         logger.error("Failed to connect to Kafka, retrying in 5 seconds")
