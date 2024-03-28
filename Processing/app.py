@@ -46,7 +46,7 @@ def get_stats():
 def populate_stats():
     start_periodic(logger)
 
-    logger.info("Assignment 3 Testing")
+    logger.info("Assignment 3")
 
     session = DB_SESSION()
 
